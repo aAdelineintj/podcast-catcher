@@ -1,0 +1,45 @@
+node_modules/
+.next/
+.env
+.DS_Store
+*.log
+
+# 任务状态目录：纯运行时数据，由 backend/main.py 启动时自动创建（os.makedirs）。
+# 内容随每次任务变化、且机器相关，入库没有意义；打包部署时也必须排除，
+# 否则本地测试任务的记录会被带上线、污染 HISTORY。
+data/jobs/
+
+# Python 运行时产物：每次运行都变，且含本机绝对路径
+venv/
+__pycache__/
+*.pyc
+
+# TypeScript 增量构建缓存：每次 tsc 都变，无版本意义
+tsconfig.tsbuildinfo
+
+# 本地 AI 助手工作区（工具状态与本地日志，非项目源码）
+.workbuddy-ai/
+
+# 用户上传的音频与转写产物：运行时数据（体积大、含用户内容），不入库。
+# 目录本身由 backend/main.py 启动时 os.makedirs 创建，无需占位文件。
+data/input/*
+data/output/*
+
+# 本机 worker 的音频中转目录。正常情况下处理完即删，但进程被强杀时会残留，
+# 里面是整份音频副本 —— 绝不能入库。
+data/worker_tmp/
+
+# Next dev 的缓存备份目录。改配置前手工留的退路，纯构建产物，动辄上百 MB。
+# 注意 .gitignore 的 `.next/` 匹配不到 `.next.dev-bak.1789494775/` 这种名字。
+.next.dev-bak.*/
+
+# ASR 调参实验的产物：每次实验都重新生成，且会随语料变大。
+result*.json
+split_auto*_result.json
+.asr_candidates.json
+
+# 联调用的样例音频（单个 17MB 左右）。体积大且可随时重新获取，
+# backend/worker/e2e_cloud.py 找不到它时会给出明确提示并跳过。
+podcast-asr-test/*.mp3
+podcast-asr-test/*.m4a
+podcast-asr-test/*.wav

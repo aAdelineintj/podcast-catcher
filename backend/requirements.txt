@@ -1,0 +1,15 @@
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+python-multipart>=0.0.9
+requests>=2.31
+python-dotenv>=1.0
+pydantic>=2.7,<3.0
+tencentcloud-sdk-python-asr>=3.0.1000
+av>=12.0
+webrtcvad-wheels>=2.0.14
+numpy>=1.26
+
+# 本地 Whisper 转写（ASR_ENGINE=whisper 时必需）。
+# 本机 venv 已装好（openai_whisper-20250625 + torch 2.11），这两行只为环境可复现。
+openai-whisper>=20250625
+torch>=2.11
